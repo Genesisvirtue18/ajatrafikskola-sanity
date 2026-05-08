@@ -1,0 +1,342 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 100 45% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 100 45% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 100 45% 48%;
+
+    --radius: 0.5rem;
+    
+    /* AJA Brand Colors */
+    --aja-green: 100 45% 48%;
+    --aja-green-dark: 100 45% 38%;
+    --aja-green-light: 100 45% 58%;
+    --aja-black: 0 0% 10%;
+    --aja-dark-gray: 0 0% 15%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--aja-black)) 0%, hsl(var(--aja-dark-gray)) 100%);
+    --gradient-overlay: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3));
+    
+    /* Shadows */
+    --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-strong: 0 10px 40px rgba(0, 0, 0, 0.2);
+    --shadow-green-glow: 0 0 30px hsl(var(--aja-green) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 100 45% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 100 45% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 100 45% 48%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Preloader Animation */
+  .preloader {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-secondary;
+  }
+
+  .preloader-spinner {
+    @apply w-16 h-16 border-4 border-muted border-t-primary rounded-full;
+    animation: spin 1s linear infinite;
+  }
+
+  /* Hero Animations */
+  .hero-fade-in {
+    animation: heroFadeIn 1.2s ease-out forwards;
+    opacity: 0;
+  }
+
+  .hero-slide-up {
+    animation: heroSlideUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .hero-scale-in {
+    animation: heroScaleIn 0.8s ease-out forwards;
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  /* Parallax Effect */
+  .parallax-bg {
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Hover Effects */
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-2;
+    box-shadow: var(--shadow-strong);
+  }
+
+  .hover-green-glow:hover {
+    box-shadow: var(--shadow-green-glow);
+  }
+
+  /* Navigation Link Underline */
+  .nav-link {
+    @apply relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+
+  /* Scroll Animations */
+  .scroll-fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .scroll-fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes heroSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroScaleIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 4s ease-in-out infinite;
+}
+
+/* Floating animations for main image & badge */
+@keyframes float-smooth {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+.animate-float-smooth {
+  animation: float-smooth 6s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+.animate-float-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+/* Gentle bounce for bubbles */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-8px); opacity: 1; }
+}
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+/* Gradient streak animations */
+@keyframes streak-slow {
+  0%, 100% { transform: translateX(0) translateY(0) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateX(10px) translateY(-10px) rotate(10deg); opacity: 1; }
+}
+.animate-streak-slow {
+  animation: streak-slow 8s ease-in-out infinite;
+}
+
+/* Optional delay utilities for bubbles and streaks */
+.delay-1000 { animation-delay: 1s; }
+.delay-2000 { animation-delay: 2s; }
+.delay-3000 { animation-delay: 3s; }
+
+
+/* Floating main orb animation */
+@keyframes float-orb {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(15deg); }
+}
+.animate-orb { animation: float-orb 8s ease-in-out infinite; }
+
+/* Floating bubbles around image */
+@keyframes float-bubble {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-10px); opacity: 1; }
+}
+.animate-bubble { animation: float-bubble 5s ease-in-out infinite; }
+
+/* Floating badge */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float-slow { animation: float-slow 4s ease-in-out infinite; }
+
+/* Fade-up animations for headings and paragraphs */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fadeUp 1s forwards; }
+
+/* Delays for staggered fade-ups */
+.float-delay-0 { animation-delay: 0s; }
+.float-delay-1 { animation-delay: 1s; }
+.float-delay-2 { animation-delay: 2s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-800 { animation-delay: 0.8s; }
+
+.drawer-enter {
+  transform: translateX(100%);
+  opacity: 0;
+}
+.drawer-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+}
+
+
