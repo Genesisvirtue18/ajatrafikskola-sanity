@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import heroBg1 from '@/assets/car17.jpg';
 import risk1Img from '@/assets/risk1.jpg';
 import risk2Img from '@/assets/risk2.jpg';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { sanityClient } from '@/lib/sanity';
 import imageUrlBuilder from '@sanity/image-url';
 
@@ -49,7 +49,7 @@ const Risk1and2Bil = () => {
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 px-6">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
-           {data?.heroTitle}
+            {data?.heroTitle}
           </h1>
           <p className="text-lg text-gray-200 max-w-2xl mx-auto">
             {data?.heroSubtitle}
@@ -70,7 +70,7 @@ const Risk1and2Bil = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-             {data?.introTitle}
+              {data?.introTitle}
             </h2>
             <div className="text-muted-foreground text-lg max-w-3xl mx-auto space-y-4">
 
@@ -91,17 +91,22 @@ const Risk1and2Bil = () => {
             viewport={{ once: true }}
             className="grid md:grid-cols-2 gap-12 items-center mb-20"
           >
-           <img
-              src={urlFor(data?.topLeftImage).url()}
-              alt="Riskutbildning del 1"
-              className="rounded-2xl shadow-lg w-full"
-            />
+            {data?.topLeftImage && (
+              <img
+                src={urlFor(data.topLeftImage).url()}
+                alt="Riskutbildning del 1"
+                className="rounded-2xl shadow-lg w-full"
+              />
+            )}
 
-            <img
-              src={urlFor(data?.topRightImage).url()}
-              alt="Riskutbildning del 2"
-              className="rounded-2xl shadow-lg w-full"
-            />
+            {data?.topLeftImage && (
+              <img
+                src={urlFor(data.topRightImage).url()}
+                alt="Riskutbildning del 1"
+                className="rounded-2xl shadow-lg w-full"
+              />
+            )}
+
           </motion.div>
 
           {/* DEL 1 */}
@@ -113,10 +118,10 @@ const Risk1and2Bil = () => {
             className="mb-16"
           >
             <h3 className="text-2xl font-bold mb-4">
-               {data?.riskOneTitle}
+              {data?.riskOneTitle}
             </h3>
 
-         <div className="space-y-4 whitespace-pre-line">
+            <div className="space-y-4 whitespace-pre-line">
 
               {data?.riskOneDescription?.map(
                 (text: string, index: number) => (
@@ -131,7 +136,7 @@ const Risk1and2Bil = () => {
 
             </div>
 
-          
+
           </motion.div>
 
           {/* DEL 2 */}
@@ -146,7 +151,7 @@ const Risk1and2Bil = () => {
               {data?.riskTwoTitle}
             </h3>
 
-             <div className="space-y-4 whitespace-pre-line">
+            <div className="space-y-4 whitespace-pre-line">
 
               {data?.riskTwoDescription?.map(
                 (text: string, index: number) => (
@@ -170,7 +175,7 @@ const Risk1and2Bil = () => {
             viewport={{ once: true }}
             className="grid md:grid-cols-2 gap-10"
           >
-  {data?.infoCards?.map((card: any, index: number) => (
+            {data?.infoCards?.map((card: any, index: number) => (
 
               <div
                 key={index}
@@ -197,11 +202,11 @@ const Risk1and2Bil = () => {
           {/* CTA */}
           <div className="mt-20 bg-muted/40 p-10 rounded-2xl text-center shadow-lg">
             <h3 className="text-3xl font-bold mb-4">
-            {data?.ctaTitle}
+              {data?.ctaTitle}
             </h3>
 
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-             {data?.ctaSubtitle}
+              {data?.ctaSubtitle}
             </p>
 
             <a

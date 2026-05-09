@@ -456,23 +456,23 @@ const BillPrice = () => {
               {data?.paymentTitle}
             </h2>
 
-            <div className="space-y-3">
-              {data?.paymentDescriptions?.map(
-                (text: string, index: number) => (
-                  <p
-                    key={index}
-                    className="text-center text-muted-foreground text-sm md:text-base"
-                  >
-                    {text}
-                  </p>
-                )
-              )}
-            </div>
+           <div className="space-y-6 whitespace-pre-line max-w-3xl mx-auto">
+  {data?.paymentDescriptions?.map(
+    (text: string, index: number) => (
+      <p
+        key={index}
+        className="text-center text-muted-foreground text-lg leading-relaxed"
+      >
+        {text}
+      </p>
+    )
+  )}
+</div>
           </div>
 
           {/* OTHER PRICES */}
           <div className="mt-12">
-            <h2 className="text-xl md:text-3xl font-bold mb-6 text-center">
+            <h2 className="text-xl md:text-3xl font-bold mb-6 text-center wh">
               {data?.otherPricesTitle}
             </h2>
 
