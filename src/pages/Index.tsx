@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import Footer from '@/components/Footer';
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import imgPlaceholder1 from '@/assets/img1.jpg';
 import imgPlaceholder2 from '@/assets/img5.jpg';
 import imgPlaceholder3 from '@/assets/img2.jpg';
@@ -106,13 +106,13 @@ const Index = () => {
               {/* <img src={imgPlaceholder1} alt="Körkort 1" className="rounded-lg shadow-lg" />
               <img src={imgPlaceholder2} alt="Körkort 2" className="rounded-lg shadow-lg" />
               <img src={imgPlaceholder3} alt="Körkort 3" className="rounded-lg shadow-lg" /> */}
-              <img  src={
-    getDriving?.images?.[0]
-      ? urlFor(getDriving.images[0]).url()
-      : imgPlaceholder1
-  } />
+              <img src={
+                getDriving?.images?.[0]
+                  ? urlFor(getDriving.images[0]).url()
+                  : imgPlaceholder1
+              } />
               <img src={getDriving?.images?.[1] ? urlFor(getDriving.images[1]).url() : imgPlaceholder2} />
-<img src={getDriving?.images?.[2] ? urlFor(getDriving.images[2]).url() : imgPlaceholder3} />
+              <img src={getDriving?.images?.[2] ? urlFor(getDriving.images[2]).url() : imgPlaceholder3} />
             </div>
           </div>
         </div>
@@ -197,10 +197,10 @@ const Index = () => {
             {/* Left Content */}
             <div className="md:w-1/2 space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold max-w-lg">
-               {highQuality?.title}
+                {highQuality?.title}
               </h2>
               <p className="text-lg text-muted-foreground max-w-md">
-               {highQuality?.description}
+                {highQuality?.description}
               </p>
 
               {/* Updated clickable symbol cards */}
@@ -240,11 +240,11 @@ const Index = () => {
             {/* Right Image */}
             <div className="md:w-1/2 relative">
               <img
-             src={
-  highQuality?.image
-    ? urlFor(highQuality.image).url()
-    : imgHighQuality
-}
+                src={
+                  highQuality?.image
+                    ? urlFor(highQuality.image).url()
+                    : imgHighQuality
+                }
                 alt="Kvalitetsträning"
                 className="rounded-3xl shadow-2xl w-full object-cover"
               />
@@ -255,7 +255,7 @@ const Index = () => {
                         items-center space-y-2 w-64 hover:scale-105 transition-all duration-300">
                 <h3 className="text-lg font-semibold">{highQuality?.priceCardTitle}</h3>
                 <p className="text-sm text-center">
-                 {highQuality?.priceCardDescription}
+                  {highQuality?.priceCardDescription}
                 </p>
               </div>
             </div>
@@ -278,10 +278,10 @@ const Index = () => {
             {/* Main Image */}
             <img
               src={
-  multilingual?.image
-    ? urlFor(multilingual.image).url()
-    : imgMultilingual
-}
+                multilingual?.image
+                  ? urlFor(multilingual.image).url()
+                  : imgMultilingual
+              }
               alt="Flerspråkig träning"
               className="rounded-2xl shadow-2xl w-full md:max-w-md object-cover animate-float-smooth z-10 transition-transform duration-500 hover:scale-105"
             />
@@ -307,13 +307,13 @@ const Index = () => {
           {/* Right Text Panel with glassmorphic effect */}
           <div className="md:col-span-5 bg-black/60 backdrop-blur-md p-8 rounded-2xl flex flex-col justify-center space-y-5 shadow-2xl hover:shadow-3xl transition-shadow duration-300">
             <h2 className="text-3xl md:text-4xl font-bold leading-tight text-white">
-            {multilingual?.title}
+              {multilingual?.title}
             </h2>
             <p className="text-base md:text-lg leading-relaxed text-white/90">
-            {multilingual?.description1}
+              {multilingual?.description1}
             </p>
             <p className="text-base md:text-lg leading-relaxed text-white/90">
-             {multilingual?.description2}
+              {multilingual?.description2}
             </p>
           </div>
 
@@ -330,11 +330,11 @@ const Index = () => {
         <div className="container mx-auto px-4 text-center relative z-10 space-y-10">
           {/* Heading & Subtext */}
           <h2 className="text-4xl md:text-5xl font-bold max-w-4xl mx-auto animate-fade-up">
-          {contact?.title}
+            {contact?.title}
           </h2>
           <p className="text-lg max-w-2xl mx-auto animate-fade-up delay-200 leading-relaxed text-white/90">
-           {contact?.description}
-                     </p>
+            {contact?.description}
+          </p>
 
           {/* Call-to-action Button */}
           <Link
@@ -354,11 +354,11 @@ const Index = () => {
           {/* Image with floating badge */}
           <div className="mt-12 max-w-3xl mx-auto relative animate-fade-up delay-800">
             <img
-             src={
-  contact?.image
-    ? urlFor(contact.image).url()
-    : imgContact
-}
+              src={
+                contact?.image
+                  ? urlFor(contact.image).url()
+                  : imgContact
+              }
               alt="Kontakta AJA"
               className="rounded-3xl shadow-2xl w-full object-cover hover:scale-105 transition-transform duration-500 z-10"
             />

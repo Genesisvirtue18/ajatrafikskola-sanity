@@ -29,6 +29,7 @@ import Risk2Car from "./pages/kombokurs-bil";
 import Risk2MC from "./pages/risk2mc";
 import Inskrivningsavtal from "./pages/Inskrivningsavtal";
 import Kombokurs from "./pages/kombokurs-mc";
+
 const queryClient = new QueryClient();
 
 const App = () => {
