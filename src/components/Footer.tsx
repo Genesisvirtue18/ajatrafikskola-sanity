@@ -1,10 +1,42 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
+// import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
 import ajaLogo from "@/assets/logo-white.png";
 import footerBg from "@/assets/footer-bg.webp";
 import tiktokIcon from "@/assets/tiktok.png";
+import { useEffect, useState } from "react";
+import { getFooter } from "@/lib/getFooter";
+import {
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  Linkedin,
+  Phone,
+  Mail,
+  MapPin
+} from "lucide-react";
+
+export const iconMap: Record<string, any> = {
+  Facebook,
+  Instagram,
+  Youtube,
+  Twitter,
+  Linkedin,
+};
 
 const Footer = () => {
+  const [footerData, setFooterData] = useState<any>(null);
+  
+
+  useEffect(() => {
+    const loadFooter = async () => {
+      const data = await getFooter();
+      setFooterData(data);
+    };
+
+    loadFooter();
+  }, []);
+
   return (
     <footer className="relative bg-secondary/95 text-white overflow-hidden">
       {/* Background */}
@@ -22,208 +54,258 @@ const Footer = () => {
           {/* COLUMN 1 – RECEPTION */}
           <div>
             <img
-              src={ajaLogo}
-              alt="AJA Trafikskola"
+              src={footerData?.logo?.asset?.url}
+              alt="Logo"
               className="h-20 mb-6 brightness-110"
             />
 
             <h3 className="text-lg font-semibold mb-4">Reception</h3>
 
-            <ul className="space-y-3 text-gray-300 text-sm">
-              <li className="font-medium text-white">November – mars</li>
-              <li>Mån – tor: 09.00 – 17.00</li>
-              <li>Fre: 09.00 – 13.00</li>
+        <ul className="text-gray-300 text-sm">
+  {footerData?.receptionPeriods?.map(
+    (period: any, periodIndex: number) => (
+      <div
+        key={period.periodTitle}
+        className={periodIndex > 0 ? "mt-6" : ""}
+      >
+        <li className="font-medium text-white mb-2">
+          {period.periodTitle}
+        </li>
 
-              <li className="pt-3 font-medium text-white">April – oktober</li>
-              <li>Mån – tor: 09.00 – 18.00</li>
-              <li className="text-xs text-gray-400">
-                Lunchstängt: 12.20 – 13.10
-              </li>
-              <li>Fre: 09.00 – 13.00</li>
-            </ul>
+        {period.hours?.map((hour: any, index: number) => (
+          <li
+            key={index}
+            className={`mb-1 ${
+              hour.isNote
+                ? "text-xs text-gray-400"
+                : ""
+            }`}
+          >
+            {hour.text}
+          </li>
+        ))}
+      </div>
+    )
+  )}
+</ul>
           </div>
 
           {/* COLUMN 2 – KÖRLEKTIONER + ADRESS */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Körlektioner</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>Mån – Fre: 08.00 – 17.50</li>
-              <li>Lör – Sön: 08.30 – 16.15</li>
-            </ul>
+         <div>
+  {/* Driving Lessons */}
+  <h3 className="text-lg font-semibold mb-4">
+    {footerData?.lessonTitle}
+  </h3>
 
-            <h3 className="text-lg font-semibold mt-8 mb-4">Adress</h3>
-<a
-  href="https://www.google.com/maps/search/?api=1&query=Agnesbergsvägen+21,+424+38+Agnesberg"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="flex items-start gap-2 text-gray-300 text-sm leading-relaxed hover:text-primary transition cursor-pointer"
->
-  <MapPin className="w-5 h-5 text-primary mt-1" />
-  <p>
-    Agnesbergsvägen 21 <br />
-    424 38 Agnesberg
-  </p>
-</a>
-
+  <ul className="text-gray-300 text-sm">
+    {footerData?.lessonPeriods?.map(
+      (period: any, periodIndex: number) => (
+        <li
+          key={period.periodTitle}
+          className={periodIndex > 0 ? "mt-6" : ""}
+        >
+          <div className="font-medium text-white mb-2">
+            {period.periodTitle}
           </div>
+
+          <ul className="space-y-1">
+            {period.hours?.map(
+              (hour: any, index: number) => (
+                <li
+                  key={index}
+                  className={
+                    hour.isNote
+                      ? "text-xs text-gray-400"
+                      : ""
+                  }
+                >
+                  {hour.text}
+                </li>
+              )
+            )}
+          </ul>
+        </li>
+      )
+    )}
+  </ul>
+
+  {/* Address */}
+  <h3 className="text-lg font-semibold mt-8 mb-4">
+    {footerData?.addressTitle}
+  </h3>
+
+  <a
+    href={footerData?.googleMapLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-start gap-2 text-gray-300 text-sm leading-relaxed hover:text-primary transition cursor-pointer"
+  >
+    <MapPin className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
+
+    <p className="whitespace-pre-line">
+      {footerData?.address}
+    </p>
+  </a>
+</div>
 
           {/* COLUMN 3 – KONTAKT + BETALNING */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Kontakt</h3>
-            <ul className="space-y-3 text-gray-300 text-sm">
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:0313309040" className="hover:text-primary transition">
-                  031 330 90 40
-                </a>
-              </li>
+         <div>
+  {/* Contact */}
+  <h3 className="text-lg font-semibold mb-4">
+    {footerData?.contactTitle}
+  </h3>
 
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:0769117790" className="hover:text-primary transition">
-                  076-911 77 90
-                </a>
-              </li>
+  <ul className="space-y-3 text-gray-300 text-sm">
+    {footerData?.phoneNumbers?.map(
+      (item: any, index: number) => (
+        <li
+          key={index}
+          className="flex items-center gap-2"
+        >
+          <Phone className="w-4 h-4 text-primary flex-shrink-0" />
 
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 text-primary" />
-                <a
-                  href="mailto:Ajatrafikskola@hotmail.com"
-                  className="hover:text-primary transition break-all"
-                >
-                  Ajatrafikskola@hotmail.com
-                </a>
-              </li>
-            </ul>
+          <a
+            href={`tel:${item.number}`}
+            className="hover:text-primary transition"
+          >
+            {item.number}
+          </a>
+        </li>
+      )
+    )}
 
-            <h3 className="text-lg font-semibold mt-8 mb-4">
-              Betalningsmetoder
-            </h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>Swish: <span className="font-medium">123 263 65 20</span></li>
-              <li>Bankgiro: <span className="font-medium">562-5660</span></li>
-              <li>Resursbank / Klarna / Qliro</li>
-            </ul>
-          </div>
+    {footerData?.email && (
+      <li className="flex items-center gap-2">
+        <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+
+        <a
+          href={`mailto:${footerData.email}`}
+          className="hover:text-primary transition break-all"
+        >
+          {footerData.email}
+        </a>
+      </li>
+    )}
+  </ul>
+
+  {/* Payment Methods */}
+  <h3 className="text-lg font-semibold mt-8 mb-4">
+    {footerData?.paymentTitle}
+  </h3>
+
+  <ul className="space-y-2 text-gray-300 text-sm">
+    {footerData?.paymentMethods?.map(
+      (item: any, index: number) => (
+        <li key={index}>
+          {item.text}
+        </li>
+      )
+    )}
+  </ul>
+</div>
 
           {/* COLUMN 4 – LINKS + SOCIALS */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Viktiga Länkar</h3>
-            <ul className="space-y-2 text-gray-300 text-sm">
-              <li>
-                <a
-                  href="https://www.trafikskolaonline.se/sv"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Jag är elev
-                </a>
-              </li>
+      <div>
+  {/* Important Links */}
+  <h3 className="text-lg font-semibold mb-4">
+    {footerData?.importantLinksTitle}
+  </h3>
 
-              <li>
-                <Link
-  to="/inskrivningsavtal"
-  className="hover:text-primary transition"
->
-  Inskrivningsavtal
-</Link>
-              </li>
+  <ul className="space-y-2 text-gray-300 text-sm">
+    {footerData?.importantLinks?.map(
+      (link: any, index: number) => {
+        const isExternal =
+          link.link?.startsWith("http");
 
-              <li>
-                <a
-                  href="https://blickpunkten.se/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Synundersökning
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="https://www.transportstyrelsen.se/sv/vagtrafik/e-tjanster-och-blanketter/blanketter-for-vagtrafik/korkort/privatperson/ansok-om-korkortstillstand-grupp-i/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Körkortstillstånd
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="https://www.transportstyrelsen.se/sv/vagtrafik/korkort/ta-korkort/handledarskap-och-ovningskorning/handledare/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Handledarskap
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="https://fp.trafikverket.se/Boka/ng/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition"
-                >
-                  Boka prov
-                </a>
-              </li>
-
-             
-            </ul>
-
-            {/* SOCIALS */}
-            <h3 className="text-lg font-semibold mt-8 mb-4">Sociala Medier</h3>
-            <div className="flex gap-4 mt-2">
+        return (
+          <li key={index}>
+            {isExternal ? (
               <a
-                href="https://www.instagram.com/ajatrafikskola/"
-                target="_blank"
+                href={link.link}
+                target={
+                  link.openInNewTab
+                    ? "_blank"
+                    : "_self"
+                }
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition hover:scale-110"
+                className="hover:text-primary transition"
               >
-                <Instagram className="w-5 h-5" />
+                {link.title}
               </a>
+            ) : (
+              <Link
+                to={link.link}
+                className="hover:text-primary transition"
+              >
+                {link.title}
+              </Link>
+            )}
+          </li>
+        );
+      }
+    )}
+  </ul>
 
-              <a
-                href="https://www.facebook.com/people/AJA-Trafikskola/100063522162432/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition hover:scale-110"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
+  {/* SOCIALS */}
+  <h3 className="text-lg font-semibold mt-8 mb-4">
+    {footerData?.socialTitle}
+  </h3>
 
-              <a
-                href="https://www.tiktok.com/@ajatrafikskola_gbg"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition hover:scale-110"
-              >
-                <img src={tiktokIcon} alt="TikTok" className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
+  <div className="flex gap-4 mt-2">
+    {footerData?.socialLinks?.map(
+      (item: any, index: number) => {
+        const Icon =
+          item.iconType === "lucide"
+            ? iconMap[item.iconName]
+            : null;
+
+        return (
+          <a
+            key={index}
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-primary transition hover:scale-110"
+          >
+            {item.iconType === "lucide" &&
+              Icon && (
+                <Icon className="w-5 h-5" />
+              )}
+
+            {item.iconType === "image" &&
+              item.iconImage?.asset?.url && (
+                <img
+                  src={
+                    item.iconImage.asset.url
+                  }
+                  alt=""
+                  className="w-5 h-5 object-contain"
+                />
+              )}
+          </a>
+        );
+      }
+    )}
+  </div>
+</div>
+
         </div>
 
         {/* BOTTOM BAR */}
-        <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-400 text-sm">
-          &copy; {new Date().getFullYear()} AJA Trafikskola. Alla rättigheter förbehållna.
-          <br />
-          Drivs av{" "}
-          <a
-            href="https://genesisvirtue.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            Genesis Virtue
-          </a>
-        </div>
+      <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-400 text-sm">
+  {footerData?.copyrightText}
+
+  <br />
+
+  <a
+    href={footerData?.poweredByLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-primary hover:underline"
+  >
+    {footerData?.poweredByText}
+  </a>
+</div>
       </div>
     </footer>
   );
